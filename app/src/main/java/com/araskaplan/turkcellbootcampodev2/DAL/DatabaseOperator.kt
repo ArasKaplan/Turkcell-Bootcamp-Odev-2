@@ -24,6 +24,32 @@ class DatabaseOperator(context: Context) {
         }
     }
 
+    private fun getSinglePaymentTypePrivate(paymentTypeId: Int):Cursor{
+        val query="Select * From PaymentType Where Id = ?"
+        return dataBase!!.rawQuery(query, arrayOf(paymentTypeId.toString()))
+    }
+
+    @SuppressLint("Range")
+    fun getSinglePaymentType(paymentTypeId: Int):ArrayList<PaymentType>{
+        var paymentType:PaymentType
+        val ptList= arrayListOf<PaymentType>()
+
+        open()
+        val c:Cursor=getSinglePaymentTypePrivate(paymentTypeId)
+        if (c.moveToFirst()){
+            do {
+                paymentType= PaymentType()
+                paymentType.Id = c.getInt(c.getColumnIndex("Id"))
+                paymentType.Title = c.getString(c.getColumnIndex("Title"))
+                paymentType.Period=c.getInt(c.getColumnIndex("Period"))
+                paymentType.PeriodType=c.getString(c.getColumnIndex("PeriodType"))
+                ptList.add(paymentType)
+            }while (c.moveToNext())
+        }
+        close()
+        return ptList
+    }
+
     private fun getAllPaymentTypesPrivate():Cursor{
         val query="Select * From PaymentType"
         return dataBase!!.rawQuery(query,null)
@@ -50,31 +76,6 @@ class DatabaseOperator(context: Context) {
         close()
         return paymentTypeList
     }
-
-    @SuppressLint("Range")
-    fun getAllPayments(paymentTypeId:Int):ArrayList<Payment>{
-        val paymentList = ArrayList<Payment>()
-        var payment:Payment
-        open()
-
-        var c:Cursor=getPayments(paymentTypeId)
-
-        if (c.moveToFirst()){
-            do {
-                payment= Payment()
-                payment.Id=c.getInt(c.getColumnIndex("Id"))
-                payment.Amount=c.getInt(c.getColumnIndex("Amount"))
-                payment.Date=c.getString(c.getColumnIndex("Date"))
-                payment.PaymentTypeID=c.getInt(c.getColumnIndex("PaymentTypeId"))
-                paymentList.add(payment)
-            }while (c.moveToNext())
-        }
-        close()
-        return paymentList
-    }
-
-
-
 
     fun addPaymentType(paymentType: PaymentType){
         val cv=ContentValues()
@@ -104,12 +105,34 @@ class DatabaseOperator(context: Context) {
         close()
     }
 
-
     private fun getPayments(paymentTypeId: Int): Cursor {
         val query="Select * from Payment Where PaymentTypeId = ?"
         return dataBase!!.rawQuery(query, arrayOf(paymentTypeId.toString()))
 
     }
+
+    @SuppressLint("Range")
+    fun getAllPayments(paymentTypeId:Int):ArrayList<Payment>{
+        val paymentList = ArrayList<Payment>()
+        var payment:Payment
+        open()
+
+        var c:Cursor=getPayments(paymentTypeId)
+
+        if (c.moveToFirst()){
+            do {
+                payment= Payment()
+                payment.Id=c.getInt(c.getColumnIndex("Id"))
+                payment.Amount=c.getInt(c.getColumnIndex("Amount"))
+                payment.Date=c.getString(c.getColumnIndex("Date"))
+                payment.PaymentTypeID=c.getInt(c.getColumnIndex("PaymentTypeId"))
+                paymentList.add(payment)
+            }while (c.moveToNext())
+        }
+        close()
+        return paymentList
+    }
+
     fun addPayment(payment: Payment){
         val cv=ContentValues()
         cv.put("Amount",payment.Amount)
@@ -120,12 +143,12 @@ class DatabaseOperator(context: Context) {
         dataBase!!.insert("Payment",null,cv)
         close()
     }
-    fun editPayment(){
-        //might be unneeded
-    }
+
     fun deletePayment(paymentId: Int){
         open()
         dataBase!!.delete("Payment","Id = ?", arrayOf(paymentId.toString()))
         close()
     }
+
+
 }

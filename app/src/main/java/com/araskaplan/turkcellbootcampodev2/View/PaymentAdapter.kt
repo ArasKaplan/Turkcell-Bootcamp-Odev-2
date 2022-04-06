@@ -1,5 +1,7 @@
 package com.araskaplan.turkcellbootcampodev2.View
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,8 +22,14 @@ class PaymentAdapter(var list:ArrayList<Payment>):RecyclerView.Adapter<PaymentVi
         holder.date.text=list[position].Date
         holder.amount.text=list[position].Amount.toString()
         holder.itemView.setOnClickListener {
-            BusinessLogic.deletePaymentFromDB(holder.itemView.context,list[position].Id)
-            RecyclerViewAdder.updateDetailsAdapter(holder.itemView.context,list[position].PaymentTypeID)
+            val adb=AlertDialog.Builder(holder.itemView.context)
+                .setTitle("Uyari")
+                .setMessage("Bu odemeyi silmek istediginizden emin misiniz?")
+                .setNegativeButton("Hayir",null)
+                .setPositiveButton("Evet", DialogInterface.OnClickListener { dialogInterface, i ->
+                    BusinessLogic.deletePaymentFromDB(holder.itemView.context,list[position].Id)
+                    RecyclerViewAdder.updateDetailsAdapter(holder.itemView.context,list[position].PaymentTypeID)
+                }).show()
         }
     }
 

@@ -10,9 +10,9 @@
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="68dp"
         android:fontFamily="@font/dm_sans"
-        android:gravity="center"
+        android:gravity="center_vertical|end"
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,5 +29,17 @@
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:gravity="left|center_vertical"
+        android:text="TL"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/pastpayment_recv_card_Amount"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

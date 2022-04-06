@@ -38,7 +38,7 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        if (BusinessLogic.getPaymentsFromDB(this,paymentTypeId).size==0){
+        if (BusinessLogic.getSpecifiedPaymentTypeFromDB(this,paymentTypeId).size==0){
             finish()
         }
     }

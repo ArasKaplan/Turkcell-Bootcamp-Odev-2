@@ -45,7 +45,9 @@ class AddPaymentActivity : AppCompatActivity() {
         payment.Date=binding.addPaymentActivityDate.text.toString()
 
         BusinessLogic.addPaymentoDB(this,payment)
-        RecyclerViewAdder.updateDetailsAdapter(this,paymentTypeId)
+        if (!intent.getStringExtra("from").equals("main")){
+            RecyclerViewAdder.updateDetailsAdapter(this,paymentTypeId)
+        }
         finish()
     }
 }

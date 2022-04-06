@@ -25,6 +25,10 @@ class BusinessLogic {
             DAO.deletePaymentType(paymentType)
             return true
         }
+        fun getSpecifiedPaymentTypeFromDB(context: Context,paymentTypeId: Int):ArrayList<PaymentType>{
+            val DAO=DatabaseOperator(context)
+            return DAO.getSinglePaymentType(paymentTypeId)
+        }
 
 
 

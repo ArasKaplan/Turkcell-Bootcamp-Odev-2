@@ -1,10 +1,12 @@
 package com.araskaplan.turkcellbootcampodev2.View
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isInvisible
 import androidx.core.view.marginTop
 import com.araskaplan.turkcellbootcampodev2.BLL.BusinessLogic
@@ -84,12 +86,18 @@ class AddPaymentTypeActivity : AppCompatActivity() {
     }
 
     fun deleteButtonOnClickListener(view:View){
-        var pos=intent.getIntExtra("pos",-1)
-        var tempPaymentType=BusinessLogic.getPaymentTypesFromDB(this)[pos]
-        BusinessLogic.deletePaymentType(this,tempPaymentType)
-        BusinessLogic.getPaymentsFromDB(this,tempPaymentType.Id).forEach { BusinessLogic.deletePaymentFromDB(this,it.Id) }
-        RecyclerViewAdder.updateDetailsAdapter(this,-1)
-        RecyclerViewAdder.updateMainActAdapter(this)
-        finish()
+        val adb=AlertDialog.Builder(this)
+            .setTitle("Uyari")
+            .setMessage("Bu odeme tipini silmek istediginizden emin misiniz?")
+            .setNegativeButton("Hayir",null)
+            .setPositiveButton("Evet", DialogInterface.OnClickListener { dialogInterface, i ->
+                var pos=intent.getIntExtra("pos",-1)
+                var tempPaymentType=BusinessLogic.getPaymentTypesFromDB(this)[pos]
+                BusinessLogic.deletePaymentType(this,tempPaymentType)
+                BusinessLogic.getPaymentsFromDB(this,tempPaymentType.Id).forEach { BusinessLogic.deletePaymentFromDB(this,it.Id) }
+                RecyclerViewAdder.updateDetailsAdapter(this,-1)
+                RecyclerViewAdder.updateMainActAdapter(this)
+                finish()
+            }).show()
     }
 }

@@ -26,6 +26,13 @@ class PaymentTypeAdapter(var list:ArrayList<PaymentType>):RecyclerView.Adapter<P
             intent.putExtra("Id",list[position].Id)
             holder.itemView.context.startActivity(intent)
         }
+        holder.paymentTypeButton.setOnClickListener {
+            val intent=Intent(holder.itemView.context,AddPaymentActivity::class.java)
+            intent.putExtra("Title",list[position].Title)
+            intent.putExtra("Id",list[position].Id)
+            intent.putExtra("from","main")
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +50,6 @@ class PaymentTypeViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
         paymentTypePeriod=itemView.findViewById(R.id.paymentType_recv_card_period)
         paymentTypeCycle=itemView.findViewById(R.id.paymentType_recv_card_cycle)
         paymentTypeButton=itemView.findViewById(R.id.paymentType_recv_card_button)
-
     }
 
 
