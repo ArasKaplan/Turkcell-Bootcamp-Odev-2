@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.araskaplan.turkcellbootcampodev2.BLL.BusinessLogic
 import com.araskaplan.turkcellbootcampodev2.BLL.RecyclerViewAdder
 import com.araskaplan.turkcellbootcampodev2.Model.PaymentType
@@ -18,14 +19,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var paymentType=PaymentType()
-        paymentType.Title="asd"
-        paymentType.Period=4
-        paymentType.PeriodType="asdsadas"
+        paymentType.PeriodType="gun"
+        paymentType.Period=3
+        paymentType.Title="elek"
 
+        //BusinessLogic.getPaymentTypesFromDB(this).forEach { BusinessLogic.deletePaymentType(this,it) }
 
-        RecyclerViewAdder.mainActivityRecV(binding,this, arrayListOf(paymentType))
-
-
+        RecyclerViewAdder.initMainActivityRECV(binding,this)
+        //BusinessLogic.addPaymentTypetoDB(this,paymentType)
+        //RecyclerViewAdder.updateMainActAdapter(this)
     }
     fun newPaymentType(view:View){
         val intent= Intent(this@MainActivity,AddPaymentTypeActivity::class.java)

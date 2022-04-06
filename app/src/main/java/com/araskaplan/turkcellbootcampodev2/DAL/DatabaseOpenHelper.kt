@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 class DatabaseOpenHelper(context: Context,name:String, factory: SQLiteDatabase.CursorFactory?, version:Int):SQLiteOpenHelper(context,name, factory, version){
 
     override fun onCreate(p0: SQLiteDatabase) {
-        val query="CREATE TABLE IF NOT EXISTS PaymentType(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Title TEXT, Period INTEGER, PeriodType INTEGER)"
+        val query="CREATE TABLE IF NOT EXISTS PaymentType(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Title TEXT, Period INTEGER, PeriodType Text)"
         p0.execSQL(query)
 
         val query2="CREATE TABLE IF NOT EXISTS Payment(Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Amount INTEGER,Date TEXT, PaymentTypeId INTEGER)"

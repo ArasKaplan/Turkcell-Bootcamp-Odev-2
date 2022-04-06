@@ -10,13 +10,27 @@ import com.araskaplan.turkcellbootcampodev2.databinding.ActivityMainBinding
 
 class RecyclerViewAdder{
     companion object{
-        fun mainActivityRecV(binding: ActivityMainBinding,context: Context,list:ArrayList<PaymentType>){
+        private lateinit var mainActRecVAdapter:PaymentTypeAdapter
+        lateinit var mainBinding: ActivityMainBinding
+        private lateinit var paymentTypeList:ArrayList<PaymentType>
+
+        fun initMainActivityRECV(binding: ActivityMainBinding,context: Context){
+            mainBinding=binding
+            mainActRecVAdapter=PaymentTypeAdapter(BusinessLogic.getPaymentTypesFromDB(context))
+
             binding.mainActivityRecV.apply {
                 layoutManager=LinearLayoutManager(context).apply {
                     orientation=LinearLayoutManager.VERTICAL
                 }
-                adapter=PaymentTypeAdapter(list)
+                adapter= mainActRecVAdapter
             }
+        }
+        fun getMainActivityAdapter():PaymentTypeAdapter{
+            return mainActRecVAdapter
+        }
+        fun updateMainActAdapter(context: Context){
+            mainActRecVAdapter= PaymentTypeAdapter(BusinessLogic.getPaymentTypesFromDB(context))
+            mainBinding.mainActivityRecV.adapter= mainActRecVAdapter
         }
     }
 }
