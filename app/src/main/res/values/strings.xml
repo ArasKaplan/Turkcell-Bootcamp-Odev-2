@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TurkcellBootcampOdev#2</string>
+    <string-array name="spinnervals">
+        <item>Gun</item>
+        <item>Ay</item>
+        <item>Yil</item>
+    </string-array>
 </resources>

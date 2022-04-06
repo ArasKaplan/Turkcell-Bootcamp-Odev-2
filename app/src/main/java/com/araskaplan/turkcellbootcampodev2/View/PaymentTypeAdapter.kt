@@ -1,5 +1,6 @@
 package com.araskaplan.turkcellbootcampodev2.View
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,12 @@ class PaymentTypeAdapter(var list:ArrayList<PaymentType>):RecyclerView.Adapter<P
         holder.paymentTypeTitle.text=list[position].Title
         holder.paymentTypeCycle.text=list[position].Period.toString()
         holder.paymentTypePeriod.text=list[position].PeriodType
+        holder.itemView.setOnClickListener {
+            var intent= Intent(holder.itemView.context,AddPaymentTypeActivity::class.java)
+            intent.putExtra("mode","edit")
+            intent.putExtra("pos",position)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

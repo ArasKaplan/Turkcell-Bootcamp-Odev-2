@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     }
     fun newPaymentType(view:View){
         val intent= Intent(this@MainActivity,AddPaymentTypeActivity::class.java)
+        intent.putExtra("mode","new")
         startActivity(intent)
     }
 
