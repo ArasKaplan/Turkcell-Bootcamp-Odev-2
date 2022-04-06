@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.araskaplan.turkcellbootcampodev2.BLL.BusinessLogic
+import com.araskaplan.turkcellbootcampodev2.BLL.RecyclerViewAdder
 import com.araskaplan.turkcellbootcampodev2.Model.Payment
 import com.araskaplan.turkcellbootcampodev2.R
 
@@ -17,6 +19,10 @@ class PaymentAdapter(var list:ArrayList<Payment>):RecyclerView.Adapter<PaymentVi
     override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
         holder.date.text=list[position].Date
         holder.amount.text=list[position].Amount.toString()
+        holder.itemView.setOnClickListener {
+            BusinessLogic.deletePaymentFromDB(holder.itemView.context,list[position].Id)
+            RecyclerViewAdder.updateDetailsAdapter(holder.itemView.context,list[position].PaymentTypeID)
+        }
     }
 
     override fun getItemCount(): Int {

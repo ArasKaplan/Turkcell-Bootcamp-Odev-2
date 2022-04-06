@@ -87,6 +87,8 @@ class AddPaymentTypeActivity : AppCompatActivity() {
         var pos=intent.getIntExtra("pos",-1)
         var tempPaymentType=BusinessLogic.getPaymentTypesFromDB(this)[pos]
         BusinessLogic.deletePaymentType(this,tempPaymentType)
+        BusinessLogic.getPaymentsFromDB(this,tempPaymentType.Id).forEach { BusinessLogic.deletePaymentFromDB(this,it.Id) }
+        RecyclerViewAdder.updateDetailsAdapter(this,-1)
         RecyclerViewAdder.updateMainActAdapter(this)
         finish()
     }

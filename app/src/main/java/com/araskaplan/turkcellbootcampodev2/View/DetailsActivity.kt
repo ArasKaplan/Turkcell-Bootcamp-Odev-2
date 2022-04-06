@@ -24,10 +24,10 @@ class DetailsActivity : AppCompatActivity() {
 
         RecyclerViewAdder.initDetailsActivityRECV(binding,this,paymentTypeId)
 
-        //BusinessLogic.getPaymentsFromDB(this,paymentTypeId).forEach { BusinessLogic.deletePaymentFromDB(this,it) }
+        //BusinessLogic.getPaymentsFromDB(this,paymentTypeId).forEach { BusinessLogic.deletePaymentFromDB(this,it.Id) }
         /*var payment=Payment()
         payment.Date="12.01.2022"
-        payment.Amount=45
+        payment.Amount=450
         payment.PaymentTypeID=paymentTypeId
 
         BusinessLogic.addPaymentoDB(this,payment)
@@ -35,10 +35,26 @@ class DetailsActivity : AppCompatActivity() {
         RecyclerViewAdder.updateDetailsAdapter(this,paymentTypeId)*/
 
     }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (BusinessLogic.getPaymentsFromDB(this,paymentTypeId).size==0){
+            finish()
+        }
+    }
+
+
+
     fun odemeTipiniDuzenleOnClick(view: View){
         val intent= Intent(this,AddPaymentTypeActivity::class.java)
         intent.putExtra("mode","edit")
         intent.putExtra("pos",typePos)
+        startActivity(intent)
+    }
+    fun odemeEkleOnClickListener(view:View){
+        val intent=Intent(this,AddPaymentActivity::class.java)
+        intent.putExtra("Id",paymentTypeId)
+        intent.putExtra("Title",BusinessLogic.getPaymentTypesFromDB(this)[typePos].Title)
         startActivity(intent)
     }
 }

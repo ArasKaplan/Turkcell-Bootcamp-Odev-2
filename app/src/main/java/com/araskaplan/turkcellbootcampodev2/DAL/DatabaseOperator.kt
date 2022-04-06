@@ -123,9 +123,9 @@ class DatabaseOperator(context: Context) {
     fun editPayment(){
         //might be unneeded
     }
-    fun deletePayment(payment: Payment){
+    fun deletePayment(paymentId: Int){
         open()
-        dataBase!!.delete("Payment","Id = ?", arrayOf(payment.Id.toString()))
+        dataBase!!.delete("Payment","Id = ?", arrayOf(paymentId.toString()))
         close()
     }
 }

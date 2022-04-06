@@ -41,9 +41,9 @@ class BusinessLogic {
         fun editPayment(context: Context,payment: Payment){
             //unnecessary
         }
-        fun deletePaymentFromDB(context: Context,payment: Payment):Boolean{
+        fun deletePaymentFromDB(context: Context,paymentId: Int):Boolean{
             val DAO=DatabaseOperator(context)
-            DAO.deletePayment(payment)
+            DAO.deletePayment(paymentId)
             return true
         }
     }
