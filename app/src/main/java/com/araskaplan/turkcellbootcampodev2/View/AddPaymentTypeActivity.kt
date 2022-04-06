@@ -1,7 +1,8 @@
-package com.araskaplan.turkcellbootcampodev2
+package com.araskaplan.turkcellbootcampodev2.View
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.araskaplan.turkcellbootcampodev2.R
 
 class AddPaymentTypeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
