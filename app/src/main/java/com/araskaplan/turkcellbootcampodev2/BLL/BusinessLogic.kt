@@ -33,9 +33,9 @@ class BusinessLogic {
             val DAO=DatabaseOperator(context)
             DAO.addPayment(payment)
         }
-        fun getPaymentsFromDB(context: Context,paymentType: PaymentType?=null):ArrayList<Payment>{
+        fun getPaymentsFromDB(context: Context,paymentTypeId: Int):ArrayList<Payment>{
             val DAO=DatabaseOperator(context)
-            DAO.getPayments(paymentType)
+            DAO.getPayments(paymentTypeId)
             return arrayListOf()
         }
         fun editPayment(context: Context,payment: Payment){

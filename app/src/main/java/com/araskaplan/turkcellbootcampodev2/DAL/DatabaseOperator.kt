@@ -83,13 +83,10 @@ class DatabaseOperator(context: Context) {
     }
 
 
-    fun getPayments(paymentType: PaymentType? = null): Cursor {
-        if (paymentType!=null){
-            val query="Select * from Payment Where PaymentTypeId = ?"
-            return dataBase!!.rawQuery(query, arrayOf(paymentType.Id.toString()))
-        }
-        val query = "Select * from Payment"
-        return dataBase!!.rawQuery(query,null)
+    fun getPayments(paymentTypeId: Int): Cursor {
+        val query="Select * from Payment Where PaymentTypeId = ?"
+        return dataBase!!.rawQuery(query, arrayOf(paymentTypeId.toString()))
+
     }
     fun addPayment(payment: Payment){
         val cv=ContentValues()
