@@ -6,7 +6,7 @@
     android:layout_height="100dp">
 
     <TextView
-        android:id="@+id/payment_recv_card_title3"
+        android:id="@+id/paymentType_recv_card_period"
         android:layout_width="75dp"
         android:layout_height="35dp"
         android:layout_marginStart="248dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/payment_recv_card_title2"
+        android:id="@+id/paymentType_recv_card_cycle"
         android:layout_width="100dp"
         android:layout_height="35dp"
         android:layout_marginStart="132dp"
@@ -28,19 +28,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/payment_recv_card_button"
+        android:id="@+id/paymentType_recv_card_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/round_button"
         android:text="Odeme Yap"
         android:textColor="#CFB325"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/payment_recv_card_title"
+        android:id="@+id/paymentType_recv_card_title"
         android:layout_width="100dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"

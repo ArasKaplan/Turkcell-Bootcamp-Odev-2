@@ -18,32 +18,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mainActivity_button" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/mainActivity_button"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginStart="104dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="104dp"
-        android:background="@drawable/round_button"
-        android:fontFamily="@font/dm_sans"
+        android:onClick="newPaymentType"
         android:text="Yeni Odeme Tipi Ekle"
         android:textColor="#CFB325"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:background="@color/material_dynamic_primary30"
-        android:fontFamily="@font/dm_sans"
-        android:gravity="center"
-        android:text="Odemelerim"
-        android:textColor="#CFB325"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.araskaplan.turkcellbootcampodev2.BLL
 
 import android.content.Context
+import com.araskaplan.turkcellbootcampodev2.DAL.DatabaseOperator
 import com.araskaplan.turkcellbootcampodev2.Model.Payment
 import com.araskaplan.turkcellbootcampodev2.Model.PaymentType
 
@@ -8,32 +9,42 @@ class BusinessLogic {
 
     companion object{
         fun addPaymentTypetoDB(context: Context,paymentType: PaymentType){
-
+            val DAO=DatabaseOperator(context)
+            DAO.addPaymentType(paymentType)
         }
         fun getPaymentTypesFromDB(context: Context):ArrayList<PaymentType>{
-
+            val DAO=DatabaseOperator(context)
+            DAO.getPaymentTypes()
             return arrayListOf()
         }
-        fun editPaymentType(){
-
+        fun editPaymentType(context: Context,paymentType: PaymentType){
+            val DAO=DatabaseOperator(context)
+            DAO.editPaymentType(paymentType)
         }
-        fun deletePaymentType():Boolean{
-
+        fun deletePaymentType(context: Context,paymentType: PaymentType):Boolean{
+            val DAO=DatabaseOperator(context)
+            DAO.deletePaymentType(paymentType)
             return true
         }
 
-        fun addPaymentoDB(){
 
+
+
+        fun addPaymentoDB(context: Context,payment: Payment){
+            val DAO=DatabaseOperator(context)
+            DAO.addPayment(payment)
         }
-        fun getPaymentsFromDB():ArrayList<Payment>{
-
+        fun getPaymentsFromDB(context: Context,paymentType: PaymentType?=null):ArrayList<Payment>{
+            val DAO=DatabaseOperator(context)
+            DAO.getPayments(paymentType)
             return arrayListOf()
         }
-        fun editPayment(){
-
+        fun editPayment(context: Context,payment: Payment){
+            //unnecessary
         }
-        fun deletePaymentFromDB():Boolean{
-
+        fun deletePaymentFromDB(context: Context,payment: Payment):Boolean{
+            val DAO=DatabaseOperator(context)
+            DAO.deletePayment(payment)
             return true
         }
     }

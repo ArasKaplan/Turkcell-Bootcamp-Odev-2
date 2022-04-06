@@ -23,7 +23,7 @@ class DatabaseOperator(context: Context) {
         }
     }
 
-    fun getPaymentType():Cursor{
+    fun getPaymentTypes():Cursor{
         val query="Select * From PaymentType"
         return dataBase!!.rawQuery(query,null)
     }
@@ -44,6 +44,7 @@ class DatabaseOperator(context: Context) {
         cv.put("Title",paymentType.Title)
         cv.put("Period",paymentType.Period)
         cv.put("PeriodType",paymentType.PeriodType)
+
         open()
         dataBase!!.update("PaymentType",cv,"Id = ?", arrayOf(paymentType.Id.toString()))
         close()
