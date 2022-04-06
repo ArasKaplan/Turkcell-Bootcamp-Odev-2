@@ -35,9 +35,9 @@ class BusinessLogic {
         }
         fun getPaymentsFromDB(context: Context,paymentTypeId: Int):ArrayList<Payment>{
             val DAO=DatabaseOperator(context)
-            DAO.getPayments(paymentTypeId)
-            return arrayListOf()
+            return DAO.getAllPayments(paymentTypeId)
         }
+
         fun editPayment(context: Context,payment: Payment){
             //unnecessary
         }
