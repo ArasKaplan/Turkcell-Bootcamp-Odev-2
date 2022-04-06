@@ -18,13 +18,12 @@ class MainActivity : AppCompatActivity() {
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var paymentType=PaymentType()
+        /*var paymentType=PaymentType()
         paymentType.PeriodType="gun"
         paymentType.Period=3
         paymentType.Title="elek"
-
+         */
         //BusinessLogic.getPaymentTypesFromDB(this).forEach { BusinessLogic.deletePaymentType(this,it) }
-
         RecyclerViewAdder.initMainActivityRECV(binding,this)
         //BusinessLogic.addPaymentTypetoDB(this,paymentType)
         //RecyclerViewAdder.updateMainActAdapter(this)
