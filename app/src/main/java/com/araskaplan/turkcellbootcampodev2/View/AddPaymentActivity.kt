@@ -24,30 +24,54 @@ class AddPaymentActivity : AppCompatActivity() {
 
 
     }
+
+    fun checkInputs():Boolean{
+        var checkInputs=false
+        if (binding.addPaymentActivityAmount.text.toString().toInt()<=0 || binding.addPaymentActivityDate.text.equals("")||
+                !binding.addPaymentActivityDate.text.toString().matches("[0-9]{2}(\\.)[0-9]{2}(\\.)(2)[0-9]{3}".toRegex())){
+            checkInputs=true
+        }
+        return checkInputs
+    }
+
     fun initializeComponents(){
         title=intent.getStringExtra("Title").toString()
         paymentTypeId=intent.getIntExtra("Id",-1)
 
         binding.addPaymentActivityTitle.text=title
         var temp=binding.addPaymentActivityCalendar.date
-
-
         binding.addPaymentActivityCalendar.setOnDateChangeListener { calendarView, year, month, day ->
-            binding.addPaymentActivityDate.setText("${day}.${month}.${year}")
+            var sampleText=""
+            if (day>9){
+                sampleText=sampleText+"${day}"
+            }else{
+                sampleText=sampleText+"0${day}"
+            }
+            sampleText=sampleText+"."
+            if (month>9){
+                sampleText=sampleText+"${month+1}"
+            }else{
+                sampleText=sampleText+"0${month+1}"
+            }
+            sampleText=sampleText+".${year}"
+            binding.addPaymentActivityDate.setText(sampleText)
         }
         binding.addPaymentActivityCalendar.setDate(temp)
     }
 
     fun ekleOnClickListener(view: View){
-        var payment=Payment()
-        payment.PaymentTypeID=paymentTypeId
-        payment.Amount=binding.addPaymentActivityAmount.text.toString().toInt()
-        payment.Date=binding.addPaymentActivityDate.text.toString()
+        if (!checkInputs()){
+            var payment=Payment()
+            payment.PaymentTypeID=paymentTypeId
+            payment.Amount=binding.addPaymentActivityAmount.text.toString().toInt()
+            payment.Date=binding.addPaymentActivityDate.text.toString()
 
-        BusinessLogic.addPaymentoDB(this,payment)
-        if (!intent.getStringExtra("from").equals("main")){
-            RecyclerViewAdder.updateDetailsAdapter(this,paymentTypeId)
+            BusinessLogic.addPaymentoDB(this,payment)
+            if (!intent.getStringExtra("from").equals("main")){
+                RecyclerViewAdder.updateDetailsAdapter(this,paymentTypeId)
+            }
+            finish()
         }
-        finish()
+        Toast.makeText(this,"Girdilerinizi Kontrol Ediniz",Toast.LENGTH_SHORT).show()
     }
 }

@@ -56,33 +56,46 @@ class AddPaymentTypeActivity : AppCompatActivity() {
             }
         }
     }
-    fun ekleButtonOnClickListener(view: View) {
-        if (intent.getStringExtra("mode").equals("new")){
-            var paymentType = PaymentType()
-            paymentType.Title = binding.addNewPaymentTypeActivityTitle.text.toString()
-            if (!binding.addNewPaymentTypeActivitySwitch.isChecked) {
-                paymentType.Period = binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()
-                paymentType.PeriodType = binding.addNewPaymentTypeSpinner.selectedItem.toString()
+    fun checkInputs():Boolean{
+        var checkInputs=false
+        if (!binding.addNewPaymentTypeActivitySwitch.isChecked){
+            when(binding.addNewPaymentTypeSpinner.selectedItem){
+                "Gun"->if (binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()>=30 || binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()<=0) checkInputs=true
+                "Ay"->if (binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()>=12 || binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()<=0) checkInputs=true
             }
-            BusinessLogic.addPaymentTypetoDB(this, paymentType)
-            RecyclerViewAdder.updateMainActAdapter(this)
-            finish()
-        }else{
-            var pos=intent.getIntExtra("pos",-1)
-            var tempPaymentType=BusinessLogic.getPaymentTypesFromDB(this)[pos]
-            tempPaymentType.Title=binding.addNewPaymentTypeActivityTitle.text.toString()
-            if (binding.addNewPaymentTypeActivitySwitch.isChecked){
-                tempPaymentType.Period= null
-                tempPaymentType.PeriodType=null
-            }else{
-                tempPaymentType.Period=binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()
-                tempPaymentType.PeriodType=binding.addNewPaymentTypeSpinner.selectedItem.toString()
-            }
-            BusinessLogic.editPaymentType(this,tempPaymentType)
-            RecyclerViewAdder.updateMainActAdapter(this)
-            finish()
         }
-
+        return checkInputs
+    }
+    fun ekleButtonOnClickListener(view: View) {
+        if (!checkInputs()){
+            if (intent.getStringExtra("mode").equals("new")){
+                var paymentType = PaymentType()
+                paymentType.Title = binding.addNewPaymentTypeActivityTitle.text.toString()
+                if (!binding.addNewPaymentTypeActivitySwitch.isChecked) {
+                    paymentType.Period = binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()
+                    paymentType.PeriodType = binding.addNewPaymentTypeSpinner.selectedItem.toString()
+                }
+                BusinessLogic.addPaymentTypetoDB(this, paymentType)
+                RecyclerViewAdder.updateMainActAdapter(this)
+                finish()
+            }else{
+                var pos=intent.getIntExtra("pos",-1)
+                var tempPaymentType=BusinessLogic.getPaymentTypesFromDB(this)[pos]
+                tempPaymentType.Title=binding.addNewPaymentTypeActivityTitle.text.toString()
+                if (binding.addNewPaymentTypeActivitySwitch.isChecked){
+                    tempPaymentType.Period= null
+                    tempPaymentType.PeriodType=null
+                }else{
+                    tempPaymentType.Period=binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()
+                    tempPaymentType.PeriodType=binding.addNewPaymentTypeSpinner.selectedItem.toString()
+                }
+                BusinessLogic.editPaymentType(this,tempPaymentType)
+                RecyclerViewAdder.updateMainActAdapter(this)
+                finish()
+            }
+        }else{
+            Toast.makeText(this,"Girdilerinizi Kontrol Ediniz",Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun deleteButtonOnClickListener(view:View){
