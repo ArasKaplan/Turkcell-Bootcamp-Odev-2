@@ -57,14 +57,16 @@ class AddPaymentTypeActivity : AppCompatActivity() {
         }
     }
     fun checkInputs():Boolean{
-        var checkInputs=false
+        if (binding.addNewPaymentTypeActivityTitle.text.toString().equals("") || binding.addNewPaymentTypeActivityTitle.text.toString().equals("")){
+            return true
+        }
         if (!binding.addNewPaymentTypeActivitySwitch.isChecked){
             when(binding.addNewPaymentTypeSpinner.selectedItem){
-                "Gun"->if (binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()>=30 || binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()<=0) checkInputs=true
-                "Ay"->if (binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()>=12 || binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()<=0) checkInputs=true
+                "Gun"->if (binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()>=30 || binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()<=0) return true
+                "Ay"->if (binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()>=12 || binding.addNewPaymentTypeActivityPeriodNum.text.toString().toInt()<=0) return true
             }
         }
-        return checkInputs
+        return false
     }
     fun ekleButtonOnClickListener(view: View) {
         if (!checkInputs()){

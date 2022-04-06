@@ -26,12 +26,13 @@ class AddPaymentActivity : AppCompatActivity() {
     }
 
     fun checkInputs():Boolean{
-        var checkInputs=false
-        if (binding.addPaymentActivityAmount.text.toString().toInt()<=0 || binding.addPaymentActivityDate.text.equals("")||
-                !binding.addPaymentActivityDate.text.toString().matches("[0-9]{2}(\\.)[0-9]{2}(\\.)(2)[0-9]{3}".toRegex())){
-            checkInputs=true
+        if (binding.addPaymentActivityAmount.text.toString().equals("")|| binding.addPaymentActivityDate.text.toString().equals("")){
+            return true
         }
-        return checkInputs
+        if (binding.addPaymentActivityAmount.text.toString().toInt()<=0 || !binding.addPaymentActivityDate.text.toString().matches("[0-9]{2}(\\.)[0-9]{2}(\\.)(2)[0-9]{3}".toRegex())){
+            return true
+        }
+        return false
     }
 
     fun initializeComponents(){
@@ -71,7 +72,8 @@ class AddPaymentActivity : AppCompatActivity() {
                 RecyclerViewAdder.updateDetailsAdapter(this,paymentTypeId)
             }
             finish()
+        }else{
+            Toast.makeText(this,"Girdilerinizi Kontrol Ediniz",Toast.LENGTH_SHORT).show()
         }
-        Toast.makeText(this,"Girdilerinizi Kontrol Ediniz",Toast.LENGTH_SHORT).show()
     }
 }
